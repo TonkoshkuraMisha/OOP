@@ -73,9 +73,9 @@ class Avenger:
         self.name = name
 
     def make_kick(self, enemy):
-        enemy.health -= 20
-        print(self.name, "бьет", enemy.name)
-        print('%s = %d' % (enemy.name, enemy.health))
+        enemy.health -= randint(5, 15)
+        print(f"{self.name} бьет {enemy.name}a")
+        print(f"{enemy.name} = {enemy.health}")
 
 
 class Battle:
