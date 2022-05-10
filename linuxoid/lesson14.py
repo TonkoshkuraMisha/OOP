@@ -11,7 +11,6 @@
 7. Решение задачи путем организации взаимодействия объектов.
 """
 
-
 class Data:
     def __init__(self, *info):
         self.info = list(info)
