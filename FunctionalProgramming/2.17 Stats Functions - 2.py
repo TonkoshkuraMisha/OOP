@@ -15,7 +15,6 @@ def variance(lst):
 
 def correlation_coefficient(x_list, y_list):
     """Calculate the correlation coefficient between two lists x_list and y_list."""
-    n = len(x_list)
 
     # Calculate mean of x_list and y_list
     mean_x = mean(x_list)
@@ -26,7 +25,7 @@ def correlation_coefficient(x_list, y_list):
     sigma_y = sqrt(variance(y_list))
 
     # Calculate the numerator of the correlation coefficient formula
-    numerator = sum((x * y - mean_x * mean_y) for x, y in zip(x_list, y_list))
+    numerator = sum(map(lambda x, y: (x - mean_x) * (y - mean_y), x_list, y_list))
 
     # Calculate the correlation coefficient
     correlation = numerator / (sigma_x * sigma_y)
@@ -34,17 +33,9 @@ def correlation_coefficient(x_list, y_list):
     return correlation
 
 
-def get_numeric_list(prompt):
-    """Prompt the user to enter a list of numbers separated by spaces."""
-    input_data = input(prompt).strip()
-    return list(map(float, input_data.split()))
+# Example usage:
+x_list = [1, 2, 3, 4, 5]
+y_list = [2, 4, 6, 8, 10]
 
-
-# Получаем списки x_list и y_list от пользователя
-x_list = get_numeric_list()
-
-y_list = get_numeric_list()
-
-# Вычисляем коэффициент корреляции между x_list и y_list
 result = correlation_coefficient(x_list, y_list)
-print("Коэффициент корреляции:", result)
+print("Correlation Coefficient:", result)
