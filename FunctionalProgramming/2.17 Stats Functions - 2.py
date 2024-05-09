@@ -1,41 +1,37 @@
-from math import sqrt
-from functools import reduce
+def mean(iterable):
+    """
+    Calculates the mean (average) of the given iterable.
+    """
+    total = sum(iterable)
+    return total / len(iterable)
 
 
-def mean(lst):
-    """Calculate the mean (average) of a list."""
-    return sum(lst) / len(lst)
+def variance(iterable, mean_val):
+    """
+    Calculates the variance of the given iterable.
+    """
+    squared_diff = [(x - mean_val) ** 2 for x in iterable]
+    return sum(squared_diff) / len(iterable)
 
 
-def variance(lst):
-    """Calculate the variance of a list."""
-    m = mean(lst)
-    return sum((x - m) ** 2 for x in lst) / len(lst)
+def correlation_coefficient(x, y):
+    """
+    Calculates the correlation coefficient between two lists x and y.
+    """
+    n = len(x)
+    mean_x = mean(x)
+    mean_y = mean(y)
+    sigma_x = variance(x, mean_x) ** 0.5
+    sigma_y = variance(y, mean_y) ** 0.5
+
+    numerator = sum((xi * yi - mean_x * mean_y) for xi, yi in zip(x, y))
+    denominator = sigma_x * sigma_y
+
+    return numerator / denominator
 
 
-def correlation_coefficient(x_list, y_list):
-    """Calculate the correlation coefficient between two lists x_list and y_list."""
-
-    # Calculate mean of x_list and y_list
-    mean_x = mean(x_list)
-    mean_y = mean(y_list)
-
-    # Calculate standard deviation (sigma) of x_list and y_list
-    sigma_x = sqrt(variance(x_list))
-    sigma_y = sqrt(variance(y_list))
-
-    # Calculate the numerator of the correlation coefficient formula
-    numerator = sum(map(lambda x, y: (x - mean_x) * (y - mean_y), x_list, y_list))
-
-    # Calculate the correlation coefficient
-    correlation = numerator / (sigma_x * sigma_y)
-
-    return correlation
-
-
-# Example usage:
-x_list = [1, 2, 3, 4, 5]
-y_list = [2, 4, 6, 8, 10]
-
-result = correlation_coefficient(x_list, y_list)
-print("Correlation Coefficient:", result)
+# Example usage
+X = [1, 2, 3, 4, 5]
+Y = [2, 4, 6, 8, 10]
+result = correlation_coefficient(X, Y)
+print(f"Correlation coefficient: {result:.4f}")
